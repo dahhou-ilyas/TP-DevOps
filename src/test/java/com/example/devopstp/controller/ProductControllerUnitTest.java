@@ -20,6 +20,7 @@ import static org.hamcrest.Matchers.containsString;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(ProductController.class)
@@ -47,5 +48,18 @@ public class ProductControllerUnitTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString(resultContent)))
                 .andDo(print());
+    }
+    @Test
+    public void getProductByIdTest() throws Exception{
+        Product p=new Product("product 1","product 1 description",400.0);
+        p.setId(100);
+        resultContent=mapper.writeValueAsString(p);
+        when(productDao.findById(100)).thenReturn(Optional.of(p));
+
+        this.mvc.perform(get("/product/100").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(resultContent)))
+                .andDo(print());
+
     }
 }
