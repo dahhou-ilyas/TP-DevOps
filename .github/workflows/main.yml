@@ -42,7 +42,7 @@ jobs:
 
       - name: Docker Build and Push
         run: |
-          docker build . -t dahhouilyas/product-microservice
+          docker build -t dahhouilyas/product-microservice "${{ github.repository }}"
           docker push dahhouilyas/product-microservice
 
   deploy:
