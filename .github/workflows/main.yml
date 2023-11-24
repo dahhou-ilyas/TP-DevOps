@@ -13,9 +13,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+
       - name: Maven Build
-        run: |
-          docker run --rm -v $(pwd):/app -w /app maven:3-jdk-17 mvn package -B
+        run: mvn package -B
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
