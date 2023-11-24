@@ -20,9 +20,12 @@ jobs:
       - name: Maven Build
         run: |
           docker run --rm -v $(pwd):/app -w /app maven:3-jdk-17 mvn package -B
-        artifacts:
-          paths:
-            - target/*.jar
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: java-app
+          path: target/*.jar
 
   package:
     runs-on: ubuntu-latest
@@ -49,6 +52,11 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: java-app
 
       - name: Deploy to Docker
         run: docker run -d -p 9001:9001 --name product-microservice dahhouilyas/product-microservice
