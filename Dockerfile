@@ -3,8 +3,7 @@ RUN addgroup --system spring && adduser --system spring --ingroup spring
 
 USER spring:spring
 WORKDIR /app
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
+COPY --chown=appuser:appuser target/**.jar app.jar
 EXPOSE 9001
 
 ENTRYPOINT ["java","-jar","/app.jar"]
