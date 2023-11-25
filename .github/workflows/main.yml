@@ -51,8 +51,8 @@ jobs:
           
     - name: Build Docker image
       run: |
-        docker build . -t your-docker-username/product-microservice
-        docker push your-docker-username/product-microservice
+        docker build . -t dahhouilyas/product-microservice
+        docker push dahhouilyas/product-microservice
 
   docker-deploy:
     runs-on: ubuntu-latest
